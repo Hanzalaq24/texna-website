@@ -5,14 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- Cache Control Meta Tags -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0" />
+    <!-- Aggressive Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, s-maxage=0" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <meta http-equiv="Last-Modified" content="Wed, 06 Nov 2024 12:00:00 GMT" />
-    <meta name="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Last-Modified" content="Wed, 06 Nov 2024 18:00:00 GMT" />
+    <meta name="cache-control" content="no-cache, no-store, must-revalidate, max-age=0" />
     <meta name="expires" content="0" />
     <meta name="pragma" content="no-cache" />
+    <meta http-equiv="refresh" content="0; url=" />
+    
+    <!-- Critical CSS for Bottom Navigation -->
+    <style>
+        /* CRITICAL: Bottom Navigation Fix */
+        .bottom-nav {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            background: #FFFFFF !important;
+            display: flex !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            padding: 8px 12px !important;
+            box-shadow: 0 -2px 15px rgba(52, 55, 112, 0.15) !important;
+            border-top: 1px solid rgba(52, 55, 112, 0.1) !important;
+            z-index: 1000 !important;
+            min-height: 80px !important;
+        }
+        
+        @media (min-width: 1024px) {
+            .bottom-nav {
+                display: none !important;
+            }
+        }
+        
+        .nav-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: rgba(52, 55, 112, 0.7) !important;
+            cursor: pointer !important;
+            padding: 8px 4px !important;
+            border-radius: 16px !important;
+            transition: all 0.3s ease !important;
+            flex: 1 !important;
+            max-width: 80px !important;
+            min-height: 64px !important;
+            text-decoration: none !important;
+        }
+        
+        .nav-item.active {
+            color: #FFFFFF !important;
+            background-color: #343770 !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 4px 12px rgba(52, 55, 112, 0.3) !important;
+        }
+        
+        .nav-item:last-child {
+            color: #25D366 !important;
+        }
+        
+        .nav-item:last-child.active {
+            background-color: #25D366 !important;
+            color: #FFFFFF !important;
+        }
+        
+        .nav-icon {
+            width: 32px !important;
+            height: 32px !important;
+            object-fit: contain !important;
+        }
+        
+        .main-content {
+            padding-bottom: 90px !important;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-content {
+                padding-bottom: 0 !important;
+            }
+        }
+    </style>
+    
+    <!-- Force CSS Reload Script -->
+    <script>
+        // Immediate cache fix
+        (function() {
+            console.log('🔄 Emergency CSS fix loading...');
+            
+            // Clear all CSS cache
+            const allLinks = document.querySelectorAll('link[rel="stylesheet"]');
+            allLinks.forEach(link => {
+                if (link.href.includes('styles')) {
+                    link.remove();
+                }
+            });
+            
+            // Load fresh CSS
+            const timestamp = Date.now();
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'styles-new.css?v=5.0&force=1&t=' + timestamp + '&nocache=true&emergency=1';
+            cssLink.onload = function() {
+                console.log('✅ Fresh CSS loaded');
+            };
+            document.head.appendChild(cssLink);
+            
+            // Clear localStorage
+            try {
+                Object.keys(localStorage).forEach(key => {
+                    if (key.includes('cache') || key.includes('texna')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+            } catch(e) {}
+            
+        })();
+    </script>
 
     <!-- SEO Meta Tags -->
     <title>Texna - Leading Jacquard Harness Systems Manufacturer | 35+ Years Experience</title>
@@ -59,7 +171,7 @@
     <link rel="prefetch" href="products.html">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=4.0&rebuild=20241106">
+    <link rel="stylesheet" href="styles-new.css?v=5.0&force=1&t=1730898000&nocache=true">
 
     <!-- Structured Data -->
     <script type="application/ld+json">

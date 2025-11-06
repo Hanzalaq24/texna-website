@@ -737,6 +737,63 @@ function enhanceAccessibility() {
     }
 }
 
+// ===== EMERGENCY CACHE FIX =====
+function forceReloadCSS() {
+    console.log('🔄 Force reloading CSS...');
+    
+    // Remove existing stylesheet
+    const existingLink = document.querySelector('link[href*="styles.css"]');
+    if (existingLink) {
+        existingLink.remove();
+    }
+    
+    // Create new stylesheet link with timestamp
+    const newLink = document.createElement('link');
+    newLink.rel = 'stylesheet';
+    newLink.href = `styles.css?v=5.0&force=1&t=${Date.now()}&nocache=true&reload=1`;
+    document.head.appendChild(newLink);
+    
+    // Also clear localStorage cache flags
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('texna_cache')) {
+            localStorage.removeItem(key);
+        }
+    });
+    
+    console.log('✅ CSS force reloaded');
+}
+
+function detectLayoutIssues() {
+    // Wait for DOM to be ready
+    setTimeout(() => {
+        const bottomNav = document.querySelector('.bottom-nav');
+        if (bottomNav) {
+            const computedStyle = window.getComputedStyle(bottomNav);
+            const position = computedStyle.position;
+            const bottom = computedStyle.bottom;
+            
+            console.log('Bottom nav position:', position, 'bottom:', bottom);
+            
+            // If bottom nav is not fixed at bottom, force reload CSS
+            if (position !== 'fixed' || bottom !== '0px') {
+                console.warn('⚠️ Layout issue detected - forcing CSS reload');
+                forceReloadCSS();
+                
+                // Try again after a delay
+                setTimeout(() => {
+                    const newStyle = window.getComputedStyle(bottomNav);
+                    if (newStyle.position !== 'fixed' || newStyle.bottom !== '0px') {
+                        console.warn('⚠️ Still having issues - reloading page');
+                        window.location.reload(true);
+                    }
+                }, 2000);
+            } else {
+                console.log('✅ Layout is correct');
+            }
+        }
+    }, 1000);
+}
+
 // ===== MAIN INITIALIZATION =====
 function initializeApp() {
     console.log('🚀 Initializing Texna website...');
@@ -760,6 +817,9 @@ function initializeApp() {
         preloadCriticalResources();
         enhanceAccessibility();
         initializeAnalytics();
+        
+        // Check for layout issues and fix if needed
+        detectLayoutIssues();
         
         console.log('✅ Texna website initialized successfully');
         
