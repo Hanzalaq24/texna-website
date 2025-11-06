@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>Search Texna Products & Services - Find Jacquard Harness Components</title>
+    <meta name="description" content="Search Texna's complete range of Jacquard Harness products and services. Find Guide Boards, Wire Healds, installation services, and more textile machinery solutions.">
+    <meta name="keywords" content="Search Texna Products, Find Jacquard Parts, Textile Machinery Search, Harness Components Search">
+    <meta name="author" content="Texna">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="SVG/Texna Logo.svg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#343770">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=2.0">
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <button class="back-btn" onclick="window.history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="#343770" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="nav-center">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="SVG/Texna Logo.svg" alt="Texna Logo" class="logo-svg">
+                </a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="menu-btn">
+                <img src="SVG/Menu Line.svg" alt="Menu" style="width: 24px; height: 24px;">
+            </button>
+        </div>
+        
+        <!-- Desktop Navigation Menu -->
+        <nav class="desktop-nav">
+            <ul class="desktop-nav-list">
+                <li class="desktop-nav-item">
+                    <a href="index.html" class="desktop-nav-link">
+                        <img src="SVG/Home Button.svg" alt="Home" class="desktop-nav-icon">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="desktop-nav-item active">
+                    <a href="search.html" class="desktop-nav-link">
+                        <img src="SVG/Search Button.svg" alt="Search" class="desktop-nav-icon">
+                        <span>Search</span>
+                    </a>
+                </li>
+                <li class="desktop-nav-item">
+                    <a href="services.html" class="desktop-nav-link">
+                        <img src="SVG/Services Button.svg" alt="Services" class="desktop-nav-icon">
+                        <span>Services</span>
+                    </a>
+                </li>
+                <li class="desktop-nav-item">
+                    <a href="products.html" class="desktop-nav-link">
+                        <img src="SVG/Products Button.svg" alt="Products" class="desktop-nav-icon">
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li class="desktop-nav-item">
+                    <a href="about.html" class="desktop-nav-link">
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="desktop-nav-item">
+                    <a href="https://wa.me/919978617177" target="_blank" class="desktop-nav-link whatsapp-link">
+                        <img src="SVG/Whatsapp Button.svg" alt="WhatsApp" class="desktop-nav-icon">
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content search-main">
+        <!-- Search Header -->
+        <section class="search-header">
+            <h1 class="search-title">Search Products & Services</h1>
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search for products or services...">
+                    <button class="search-btn" onclick="performSearch()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Results -->
+        <section class="search-results">
+            <div id="searchResults" class="results-container">
+                <!-- Initial state - show all products and services -->
+                <div class="results-section">
+                    <h3 class="results-title">Products</h3>
+                    <div id="productResults" class="results-grid">
+                        <!-- Products will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="results-section">
+                    <h3 class="results-title">Services</h3>
+                    <div id="serviceResults" class="results-grid">
+                        <!-- Services will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <div class="no-results-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </div>
+                <h3>No results found</h3>
+                <p>Try searching with different keywords</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <h3 class="footer-title">About Texna</h3>
+                <div class="footer-info">
+                    <p>Leading manufacturer of Jacquard Harness Systems with 35+ years of excellence in textile industry.</p>
+                    <div class="footer-stats">
+                        <div class="stat-item">
+                            <strong>40,000+</strong>
+                            <span>Successful Installations</span>
+                        </div>
+                        <div class="stat-item">
+                            <strong>250+</strong>
+                            <span>Team Members</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="services.html">Services</a>
+                    <a href="about.html">About Us</a>
+                    <a href="search.html">Search</a>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="contact-icon">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <div class="contact-text">
+                            <p>Plot No 1026, Rd Number 87</p>
+                            <p>GIDC, Sachin, Surat</p>
+                            <p>Gujarat 394230, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="contact-icon">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <div class="contact-text">
+                            <a href="tel:+919978617177">+91 9978617177</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="contact-icon">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <div class="contact-text">
+                            <a href="mailto:info@texna.com">info@texna.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="contact-icon">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <div class="contact-text">
+                            <p>Mon-Sat: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="footer-section">
+                <h3 class="footer-title">Follow Us</h3>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/texna_harness?igsh=ZmlzMnNwcTB4eXpn" target="_blank" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.facebook.com/people/Texna/61571191199435/" target="_blank" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://wa.me/919978617177" target="_blank" class="social-link whatsapp">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <p>&copy; 2024 Texna. All rights reserved.</p>
+                <p>35+ Years of Excellence in Jacquard Harness Systems | 40,000+ Successful Installations</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item">
+            <a href="index.html">
+                <img src="SVG/Home Button.svg" alt="Home" class="nav-icon">
+                <span class="nav-text">Home</span>
+            </a>
+        </div>
+
+        <div class="nav-item active">
+            <a href="search.html">
+                <img src="SVG/Search Button.svg" alt="Search" class="nav-icon">
+                <span class="nav-text">Search</span>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <a href="services.html">
+                <img src="SVG/Services Button.svg" alt="Services" class="nav-icon">
+                <span class="nav-text">Services</span>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <a href="products.html">
+                <img src="SVG/Products Button.svg" alt="Products" class="nav-icon">
+                <span class="nav-text">Products</span>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <a href="https://wa.me/919978617177" target="_blank">
+                <img src="SVG/Whatsapp Button.svg" alt="WhatsApp" class="nav-icon">
+                <span class="nav-text">Contact</span>
+            </a>
+        </div>
+    </nav>
+    <script src="script.js"></script>
+</body>
+
+</html>

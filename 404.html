@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Page Not Found - Texna</title>
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #343770 0%, #6062A9 100%);
+            color: white;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            margin: 0;
+            color: #FFD700;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        .error-description {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .home-button {
+            background: #FFD700;
+            color: #343770;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .home-button:hover {
+            background: #FFF700;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-message">Page Not Found</h2>
+        <p class="error-description">The page you're looking for doesn't exist or has been moved.</p>
+        <a href="/" class="home-button">Go Home</a>
+    </div>
+</body>
+</html>
