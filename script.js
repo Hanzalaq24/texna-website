@@ -5,9 +5,7 @@
 
 // ===== GLOBAL VARIABLES =====
 let currentSlide = 0;
-let currentReviewGroup = 0;
 let slideInterval;
-let reviewInterval;
 
 // ===== UTILITY FUNCTIONS =====
 const $ = (selector) => document.querySelector(selector);
@@ -188,96 +186,7 @@ window.currentSlideIndex = function(index) {
     }
 };
 
-// ===== REVIEWS SLIDER =====
-function initializeReviewsSlider() {
-    const reviewGroups = $$('.reviews-group');
-    const reviewIndicators = $$('.review-indicator');
-    
-    if (reviewGroups.length === 0) return;
-    
-    function showReviewGroup(index) {
-        // Remove active class from all groups and indicators
-        reviewGroups.forEach(group => group.classList.remove('active'));
-        reviewIndicators.forEach(indicator => indicator.classList.remove('active'));
-        
-        // Add active class to current group and indicator
-        if (reviewGroups[index]) {
-            reviewGroups[index].classList.add('active');
-        }
-        if (reviewIndicators[index]) {
-            reviewIndicators[index].classList.add('active');
-        }
-        
-        currentReviewGroup = index;
-    }
-    
-    function nextReviewGroup() {
-        const nextIndex = (currentReviewGroup + 1) % reviewGroups.length;
-        showReviewGroup(nextIndex);
-    }
-    
-    function startReviewSlideshow() {
-        reviewInterval = setInterval(nextReviewGroup, 6000);
-    }
-    
-    function stopReviewSlideshow() {
-        if (reviewInterval) {
-            clearInterval(reviewInterval);
-        }
-    }
-    
-    // Initialize first group
-    showReviewGroup(0);
-    
-    // Add click handlers to indicators
-    reviewIndicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            stopReviewSlideshow();
-            showReviewGroup(index);
-            startReviewSlideshow();
-        });
-    });
-    
-    // Start automatic slideshow
-    startReviewSlideshow();
-    
-    // Pause on hover
-    const reviewsSection = $('.reviews-section');
-    if (reviewsSection) {
-        reviewsSection.addEventListener('mouseenter', stopReviewSlideshow);
-        reviewsSection.addEventListener('mouseleave', startReviewSlideshow);
-    }
-}
 
-// Make review functions global for HTML onclick handlers
-window.currentReviewGroup = function(index) {
-    const reviewGroups = $$('.reviews-group');
-    if (reviewGroups.length > 0) {
-        if (reviewInterval) {
-            clearInterval(reviewInterval);
-        }
-        
-        // Remove active from all
-        reviewGroups.forEach(group => group.classList.remove('active'));
-        $$('.review-indicator').forEach(indicator => indicator.classList.remove('active'));
-        
-        // Add active to selected
-        if (reviewGroups[index - 1]) {
-            reviewGroups[index - 1].classList.add('active');
-        }
-        if ($$('.review-indicator')[index - 1]) {
-            $$('.review-indicator')[index - 1].classList.add('active');
-        }
-        
-        currentReviewGroup = index - 1;
-        
-        // Restart slideshow
-        reviewInterval = setInterval(() => {
-            const nextIndex = (currentReviewGroup + 1) % reviewGroups.length;
-            window.currentReviewGroup(nextIndex + 1);
-        }, 6000);
-    }
-};
 
 // ===== NAVIGATION =====
 function initializeNavigation() {
@@ -807,7 +716,6 @@ function initializeApp() {
         
         // Page-specific functionality
         initializeSlider();
-        initializeReviewsSlider();
         initializeSearch();
         initializeProductDetail();
         initializeProductsPage();
@@ -836,14 +744,10 @@ document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         // Pause animations and intervals when page is hidden
         if (slideInterval) clearInterval(slideInterval);
-        if (reviewInterval) clearInterval(reviewInterval);
     } else {
         // Resume when page becomes visible
         if ($('.banner-slide')) {
             initializeSlider();
-        }
-        if ($('.reviews-group')) {
-            initializeReviewsSlider();
         }
     }
 });
@@ -862,7 +766,6 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         initializeApp,
         initializeSlider,
-        initializeReviewsSlider,
         initializeNavigation,
         initializeMenu
     };
