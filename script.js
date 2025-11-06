@@ -1,5 +1,36 @@
 // ===== TEXNA WEBSITE - CLEAN JAVASCRIPT =====
 
+// Cache busting function to force CSS reload
+function forceCSSReload() {
+    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+    cssLinks.forEach(link => {
+        const href = link.href;
+        const timestamp = new Date().getTime();
+        
+        // Remove existing version parameters
+        const baseHref = href.split('?')[0];
+        
+        // Add new timestamp parameter
+        link.href = `${baseHref}?v=3.1&t=${timestamp}&force=1`;
+    });
+}
+
+// Check if we need to force reload CSS (for cache issues)
+function checkAndFixCacheIssues() {
+    // Check if this is the first load after cache issues
+    const cacheFixed = localStorage.getItem('texna_cache_fixed_v3');
+    
+    if (!cacheFixed) {
+        console.log('Fixing cache issues...');
+        forceCSSReload();
+        localStorage.setItem('texna_cache_fixed_v3', 'true');
+        
+        // Also clear any old cache flags
+        localStorage.removeItem('texna_cache_fixed');
+        localStorage.removeItem('texna_cache_fixed_v2');
+    }
+}
+
 // Domain compatibility function
 function initializeDomainCompatibility() {
     const currentDomain = window.location.origin;
@@ -728,6 +759,9 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Initializing Texna website...');
     
     try {
+        // Fix cache issues first
+        checkAndFixCacheIssues();
+        
         // Initialize all components
         initializeDomainCompatibility();
         initializeSlider();
@@ -1528,3 +1562,51 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('🌟 Reviews slider JavaScript loaded');
+// ==
+=== EMERGENCY CACHE FIX =====
+// This function can be called manually if cache issues persist
+window.fixCacheIssues = function() {
+    console.log('🔄 Emergency cache fix initiated...');
+    
+    // Clear all localStorage cache flags
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('texna_cache')) {
+            localStorage.removeItem(key);
+        }
+    });
+    
+    // Force reload all CSS files
+    forceCSSReload();
+    
+    // Wait a bit then reload the page
+    setTimeout(() => {
+        console.log('🔄 Reloading page to apply fixes...');
+        window.location.reload(true);
+    }, 1000);
+};
+
+// Auto-fix for persistent cache issues
+function detectAndFixPersistentCacheIssues() {
+    // Check if bottom navigation is positioned correctly
+    const bottomNav = document.querySelector('.bottom-nav');
+    if (bottomNav) {
+        const computedStyle = window.getComputedStyle(bottomNav);
+        const position = computedStyle.position;
+        const bottom = computedStyle.bottom;
+        
+        // If bottom nav is not fixed at bottom, we have cache issues
+        if (position !== 'fixed' || bottom !== '0px') {
+            console.warn('⚠️ Cache issues detected - bottom navigation not positioned correctly');
+            console.log('Current position:', position, 'bottom:', bottom);
+            
+            // Try to fix it
+            window.fixCacheIssues();
+        }
+    }
+}
+
+// Run cache detection after a delay to ensure CSS is loaded
+setTimeout(detectAndFixPersistentCacheIssues, 2000);
+
+// Also add a manual trigger for users
+console.log('💡 If you see layout issues, run: fixCacheIssues() in the console');
