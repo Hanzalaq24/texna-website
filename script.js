@@ -355,6 +355,12 @@ window.openProfileBanner = function(profileKey) {
     image.src = profile.image;
     image.alt = profile.heading || profile.text.split('\n')[0];
     
+    // Set blurred background
+    const wrapper = image.parentElement;
+    if (wrapper) {
+        wrapper.style.setProperty('--bg-image', `url(${profile.image})`);
+    }
+    
     // Set heading if exists
     if (heading && profile.heading) {
         heading.innerHTML = profile.heading;
