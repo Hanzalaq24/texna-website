@@ -898,19 +898,19 @@ body {
     text-decoration: none;
     color: #6B7280;
     transition: all 0.3s ease;
-    padding: 5px;
-    border-radius: 0;
+    padding: 8px;
+    border-radius: 12px;
     min-width: 60px;
     flex: 1;
     max-width: 80px;
 }
 
 .nav-item.active {
-    background: transparent;
+    background: linear-gradient(135deg, #6062A9 0%, #343770 100%);
 }
 
 .nav-item.active .nav-label {
-    color: #4F46E5;
+    color: #ffffff;
     font-weight: 600;
 }
 
@@ -928,22 +928,48 @@ body {
 }
 
 .nav-item.active .nav-icon {
-    filter: none;
+    filter: brightness(0) invert(1);
 }
 
 .nav-label {
     display: none;
 }
 
-/* WhatsApp icon special handling */
+/* WhatsApp icon special handling - no invert on active */
 .nav-item:last-child .nav-icon {
     filter: none;
 }
 
-/* Product icon - make it larger */
+.nav-item:last-child.active .nav-icon {
+    filter: none;
+}
+
+/* Product icon - same size as others */
 .nav-item:nth-child(4) .nav-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+/* Product icon active state - NO blue background, NO invert */
+.nav-item:nth-child(4).active {
+    background: transparent !important;
+}
+
+.nav-item:nth-child(4).active .nav-icon {
+    width: 40px !important;
+    height: 40px !important;
+    filter: none !important;
+}
+
+/* Disable zoom effect on product icon click */
+.nav-item:nth-child(4):active {
+    transform: none !important;
+}
+
+.nav-item:nth-child(4):active .nav-icon {
+    width: 40px !important;
+    height: 40px !important;
+    transform: none !important;
 }
 
 /* ===== MOBILE-ONLY: Prevent Desktop Display ===== */
@@ -2072,9 +2098,9 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 10000;
     display: none;
     overflow-y: auto;
@@ -2086,8 +2112,9 @@ body {
 
 /* Blur the background content when search is open */
 body.search-active > *:not(.search-overlay) {
-    filter: blur(8px);
+    filter: blur(12px);
     pointer-events: none;
+    opacity: 0.6;
 }
 
 .search-overlay-content {
