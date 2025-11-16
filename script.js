@@ -588,3 +588,260 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('✅ Texna popup banner system initialized');
+
+
+// ===== PRODUCT DETAIL PAGE FUNCTIONALITY =====
+function viewProductDetail(name, image, description, features) {
+    // Store product data in sessionStorage
+    const productData = {
+        name: name,
+        image: image,
+        description: description,
+        features: features
+    };
+    sessionStorage.setItem('currentProduct', JSON.stringify(productData));
+    
+    // Navigate to product detail page
+    window.location.href = 'product-detail.html';
+}
+
+// Load product details on product-detail.html page
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on the product detail page
+    if (window.location.pathname.includes('product-detail.html')) {
+        loadProductDetails();
+    }
+});
+
+function loadProductDetails() {
+    const productData = sessionStorage.getItem('currentProduct');
+    
+    if (productData) {
+        const product = JSON.parse(productData);
+        
+        // Update product name
+        const nameElement = document.getElementById('productName');
+        if (nameElement) {
+            nameElement.textContent = product.name;
+        }
+        
+        // Update product image
+        const imageElement = document.getElementById('productImage');
+        if (imageElement) {
+            imageElement.src = product.image;
+            imageElement.alt = product.name;
+        }
+        
+        // Update product description
+        const descriptionElement = document.getElementById('productDescription');
+        if (descriptionElement) {
+            descriptionElement.textContent = product.description;
+        }
+        
+        // Update features list
+        const featuresListElement = document.getElementById('featuresList');
+        if (featuresListElement && product.features) {
+            featuresListElement.innerHTML = product.features.map(feature => `
+                <li class="feature-item">
+                    <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M16.6 5L7.5 14.1 3.4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>${feature}</span>
+                </li>
+            `).join('');
+        }
+        
+        console.log('✅ Product details loaded:', product.name);
+    } else {
+        console.log('⚠️ No product data found in sessionStorage');
+    }
+}
+
+console.log('✅ Product detail functionality initialized');
+
+
+// ===== SEARCH OVERLAY FUNCTIONALITY =====
+const searchData = [
+    // PRODUCTS
+    { title: 'Guide Board', description: 'High-quality guide board designed for precise yarn guidance and smooth loom operation.', category: 'Products', image: 'Products Photos/Products-1.webp', link: 'product-detail.html', keywords: ['guide', 'board', 'yarn', 'loom', 'precision'] },
+    { title: 'Harness Cord', description: 'Durable harness cord for great performance in textile machinery.', category: 'Products', image: 'Products Photos/Products-2 copy.webp', link: 'product-detail.html', keywords: ['harness', 'cord', 'textile', 'machinery', 'durable'] },
+    { title: 'Comber Board', description: 'Precision comber board for efficient yarn combing and preparation.', category: 'Products', image: 'Products Photos/Products-3 copy.webp', link: 'product-detail.html', keywords: ['comber', 'board', 'yarn', 'combing', 'precision'] },
+    { title: 'Wire Healds (Raj)', description: 'Premium wire healds with durable spring mechanism for smooth operation.', category: 'Products', image: 'Products Photos/Products-5 copy.webp', link: 'product-detail.html', keywords: ['wire', 'healds', 'raj', 'spring', 'weaving'] },
+    { title: 'SS Wire Healds (Raj)', description: 'Stainless steel wire healds for enhanced corrosion resistance.', category: 'Products', image: 'Products Photos/Products-6 copy.webp', link: 'product-detail.html', keywords: ['stainless', 'steel', 'wire', 'healds', 'raj', 'corrosion'] },
+    { title: 'Tube', description: 'Precision-engineered tubes for accurate textile machinery function.', category: 'Products', image: 'Products Photos/Products-7 copy.webp', link: 'product-detail.html', keywords: ['tube', 'precision', 'textile', 'machinery'] },
+    { title: 'Quick Button (Hook Button)', description: 'User-friendly hook buttons for quick and convenient attachment.', category: 'Products', image: 'Products Photos/Products-8 copy.webp', link: 'product-detail.html', keywords: ['quick', 'button', 'hook', 'attachment', 'fastener'] },
+    { title: 'Lower Cord', description: 'Robust lower cord components for reliable operation.', category: 'Products', image: 'Products Photos/Products-11 copy.webp', link: 'product-detail.html', keywords: ['lower', 'cord', 'robust', 'reliable'] },
+    { title: 'Upper Cord', description: 'High-strength upper cords for superior lifting mechanism.', category: 'Products', image: 'Products Photos/Products-12 copy.webp', link: 'product-detail.html', keywords: ['upper', 'cord', 'lifting', 'strength'] },
+    { title: 'Kaski', description: 'Essential kaski components for enhanced machinery efficiency.', category: 'Products', image: 'Products Photos/Products-14 copy.webp', link: 'product-detail.html', keywords: ['kaski', 'components', 'efficiency', 'machinery'] },
+    { title: 'Pully', description: 'Precision pulleys for smooth power transmission in looms.', category: 'Products', image: 'Products Photos/Products-15 copy.webp', link: 'product-detail.html', keywords: ['pully', 'pulley', 'power', 'transmission', 'loom'] },
+    { title: 'Legpin', description: 'Sturdy legpin components for precise shedding and stable support.', category: 'Products', image: 'Products Photos/Products-16 copy.webp', link: 'product-detail.html', keywords: ['legpin', 'shedding', 'support', 'stable'] },
+    { title: 'Patti', description: 'Quality patti components for reliable textile machinery operation.', category: 'Products', image: 'Products Photos/Products-17 copy.webp', link: 'product-detail.html', keywords: ['patti', 'quality', 'textile', 'machinery'] },
+    { title: 'Frame Set with Accessories', description: 'Complete frame set with all necessary accessories for comprehensive loom setup.', category: 'Products', image: 'Products Photos/Products-18 copy.webp', link: 'product-detail.html', keywords: ['frame', 'set', 'accessories', 'loom', 'complete'] },
+    // SERVICES
+    { title: 'New Machine Jala Installation', description: 'Complete jala installation services for new weaving machines, ensuring perfect alignment and optimal performance.', category: 'Services', image: 'SVG/Readymade Jala.svg', link: 'services.html', keywords: ['installation', 'jala', 'new', 'machine', 'weaving'] },
+    { title: 'AMC Consultation', description: 'Annual Maintenance Contract ensures your machinery operates at peak performance year-round.', category: 'Services', image: 'SVG/Support and  Maintenance.svg', link: 'services.html', keywords: ['amc', 'annual', 'maintenance', 'contract', 'consultation'] },
+    { title: 'Jala Replacement Service', description: 'Quick and efficient jala replacement solutions for worn or damaged systems.', category: 'Services', image: 'SVG/Quick Service  (Under 24 Hrs).svg', link: 'services.html', keywords: ['jala', 'replacement', 'quick', 'service', 'repair'] },
+    { title: 'Jala Repair & Maintenance', description: 'Jala repair services to restore your system performance without full replacement.', category: 'Services', image: 'SVG/Support and  Maintenance.svg', link: 'services.html', keywords: ['jala', 'repair', 'maintenance', 'service', 'restore'] },
+    { title: 'Customized Harness Solutions', description: 'Custom harness systems tailored to your specific machine type and fabric requirements.', category: 'Services', image: 'SVG/35+ Years of  Expertise.svg', link: 'services.html', keywords: ['customized', 'harness', 'custom', 'tailored', 'solutions'] }
+];
+
+function openSearch() {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchOverlayInput');
+    
+    if (!overlay || !input) return;
+    
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus input and open keyboard
+    setTimeout(() => {
+        input.focus();
+    }, 100);
+    
+    // Show keywords initially
+    document.getElementById('searchKeywords').style.display = 'block';
+    document.getElementById('searchOverlayResults').innerHTML = '';
+    
+    console.log('✅ Search overlay opened');
+}
+
+function closeSearch() {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchOverlayInput');
+    
+    if (!overlay) return;
+    
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Clear search
+    if (input) {
+        input.value = '';
+        input.blur();
+    }
+    
+    console.log('❌ Search overlay closed');
+}
+
+function clearSearch() {
+    const input = document.getElementById('searchOverlayInput');
+    if (input) {
+        input.value = '';
+        input.focus();
+        performOverlaySearch();
+    }
+}
+
+function searchKeyword(keyword) {
+    const input = document.getElementById('searchOverlayInput');
+    if (input) {
+        input.value = keyword;
+        performOverlaySearch();
+        input.focus();
+    }
+}
+
+function performOverlaySearch() {
+    const input = document.getElementById('searchOverlayInput');
+    const clearBtn = document.getElementById('searchClearBtn');
+    const keywordsSection = document.getElementById('searchKeywords');
+    const resultsContainer = document.getElementById('searchOverlayResults');
+    
+    if (!input || !resultsContainer) return;
+    
+    const query = input.value.toLowerCase().trim();
+    
+    // Show/hide clear button
+    if (clearBtn) {
+        clearBtn.classList.toggle('visible', query.length > 0);
+    }
+    
+    // If empty, show keywords
+    if (query === '') {
+        keywordsSection.style.display = 'block';
+        resultsContainer.innerHTML = '';
+        return;
+    }
+    
+    // Hide keywords when searching
+    keywordsSection.style.display = 'none';
+    
+    // Filter results
+    const results = searchData.filter(item => {
+        return item.title.toLowerCase().includes(query) ||
+               item.description.toLowerCase().includes(query) ||
+               item.category.toLowerCase().includes(query) ||
+               item.keywords.some(keyword => keyword.includes(query));
+    });
+    
+    // Display results
+    if (results.length === 0) {
+        resultsContainer.innerHTML = '<div class="no-search-results">No results found. Try different keywords.</div>';
+    } else {
+        resultsContainer.innerHTML = results.map(item => `
+            <div class="search-result-card" onclick="navigateToSearchResult('${item.title}', '${item.category}', '${item.link}', '${item.image}', '${item.description.replace(/'/g, "\\'")}')">
+                <img src="${item.image}" alt="${item.title}" class="search-result-image">
+                <div class="search-result-content">
+                    <h3 class="search-result-title">${item.title}</h3>
+                    <p class="search-result-description">${item.description}</p>
+                    <span class="search-result-category">${item.category}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+function navigateToSearchResult(title, category, link, image, description) {
+    if (category === 'Products') {
+        const features = getProductFeatures(title);
+        const productData = {
+            name: title,
+            image: image,
+            description: description,
+            features: features
+        };
+        sessionStorage.setItem('currentProduct', JSON.stringify(productData));
+    }
+    window.location.href = link;
+}
+
+function getProductFeatures(productName) {
+    const featuresMap = {
+        'Guide Board': ['Precision-engineered for optimal performance', 'Durable construction for long-lasting use', 'Easy installation and maintenance', 'Compatible with various loom types', 'Quality tested for reliability'],
+        'Harness Cord': ['High-strength material construction', 'Excellent wear resistance', 'Smooth operation guaranteed', 'Compatible with standard machinery', 'Tested for consistent performance'],
+        'Comber Board': ['Precision-engineered design', 'Enhanced yarn alignment', 'Durable and long-lasting', 'Easy to install and maintain', 'Improves weaving efficiency'],
+        'Wire Healds (Raj)': ['Durable spring mechanism', 'Consistent tension control', 'High-quality wire construction', 'Long service life', 'Smooth and reliable operation'],
+        'SS Wire Healds (Raj)': ['Stainless steel construction', 'Superior corrosion resistance', 'Extended service life', 'Maintains tension consistency', 'Ideal for harsh environments'],
+        'Tube': ['Precision-engineered design', 'High-quality materials', 'Accurate dimensional tolerances', 'Durable and reliable', 'Compatible with standard systems'],
+        'Quick Button (Hook Button)': ['Quick and easy attachment', 'Secure fastening mechanism', 'Durable construction', 'User-friendly design', 'Reduces installation time'],
+        'Lower Cord': ['Robust construction', 'High-quality materials', 'Reliable performance', 'Long service life', 'Easy to install'],
+        'Upper Cord': ['High-strength construction', 'Superior lifting capability', 'Consistent performance', 'Durable and reliable', 'Optimized for efficiency'],
+        'Kaski': ['Precision-manufactured', 'Enhanced efficiency', 'Durable construction', 'Easy installation', 'Reliable performance'],
+        'Pully': ['Precision-engineered design', 'Smooth power transmission', 'Minimal friction operation', 'Durable construction', 'Long service life'],
+        'Legpin': ['Sturdy construction', 'Precise shedding control', 'Stable support system', 'Reliable performance', 'Easy to install'],
+        'Patti': ['Quality construction', 'Reliable operation', 'Durable materials', 'Easy maintenance', 'Compatible with standard systems'],
+        'Frame Set with Accessories': ['Complete frame set', 'All accessories included', 'Professional-grade quality', 'Easy installation', 'Comprehensive loom solution']
+    };
+    return featuresMap[productName] || ['High-quality construction', 'Reliable performance', 'Durable materials', 'Easy installation', 'Professional grade'];
+}
+
+// Real-time search
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchOverlayInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', performOverlaySearch);
+    }
+});
+
+// Close on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const overlay = document.getElementById('searchOverlay');
+        if (overlay && overlay.classList.contains('active')) {
+            closeSearch();
+        }
+    }
+});
+
+console.log('✅ Search overlay functionality initialized');

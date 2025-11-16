@@ -172,6 +172,15 @@
         </div>
     </section>
 
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <a href="https://maps.app.goo.gl/cuu59UxAGtw69DDT6" target="_blank">
+                <img src="Map.webp" alt="Texna Location Map" class="map-image">
+            </a>
+        </div>
+    </section>
+
     <!-- Profile Banner Popup -->
     <div class="profile-banner-overlay" id="profileBannerOverlay" onclick="closeProfileBanner()">
         <div class="profile-banner-content" onclick="event.stopPropagation()">
@@ -198,12 +207,45 @@
         </div>
     </div>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-content">
+            <div class="search-overlay-header">
+                <button class="search-close-btn" onclick="closeSearch()">&times;</button>
+                <h2 class="search-overlay-title">Search</h2>
+            </div>
+            
+            <div class="search-input-container">
+                <input type="text" class="search-overlay-input" id="searchOverlayInput" placeholder="Search products, services..." autocomplete="off">
+                <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()">&times;</button>
+            </div>
+            
+            <!-- Quick Keywords -->
+            <div class="search-keywords" id="searchKeywords">
+                <h3 class="keywords-title">Quick Search</h3>
+                <div class="keywords-grid">
+                    <button class="keyword-btn" onclick="searchKeyword('Jala')">Jala</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Guide Board')">Guide Board</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Harness')">Harness</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Wire Healds')">Wire Healds</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Installation')">Installation</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Maintenance')">Maintenance</button>
+                    <button class="keyword-btn" onclick="searchKeyword('Comber Board')">Comber Board</button>
+                    <button class="keyword-btn" onclick="searchKeyword('AMC')">AMC</button>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="search-overlay-results" id="searchOverlayResults"></div>
+        </div>
+    </div>
+
     <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
             <img src="SVG/Home Button.svg" alt="Home" class="nav-icon">
         </a>
-        <a href="search.html" class="nav-item">
+        <a href="javascript:void(0)" class="nav-item" onclick="openSearch()">
             <img src="SVG/Search Button.svg" alt="Search" class="nav-icon">
         </a>
         <a href="services.html" class="nav-item">
