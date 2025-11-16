@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize mobile-specific features
     initializeMobileFeatures();
+    
+    // Check if URL has #search hash and open search overlay
+    if (window.location.hash === '#search') {
+        setTimeout(function() {
+            openSearch();
+        }, 100);
+    }
 });
 
 // Initialize mobile-specific features

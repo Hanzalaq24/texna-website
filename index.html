@@ -18,7 +18,7 @@
         </button>
 
         <!-- Centered Logo -->
-        <img src="SVG/Texna Logo TM.svg" alt="Texna Logo" class="logo">
+        <img src="SVG/Texna Logo TM.svg" alt="Texna Logo" class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
     </header>
 
     <!-- Full Screen Menu Overlay -->
@@ -35,7 +35,7 @@
                 <a href="index.html" class="menu-link">
                     <span class="menu-text">Home</span>
                 </a>
-                <a href="search.html" class="menu-link">
+                <a href="javascript:void(0)" class="menu-link" onclick="toggleMenu(); openSearch();">
                     <span class="menu-text">Search</span>
                 </a>
                 <a href="services.html" class="menu-link">
