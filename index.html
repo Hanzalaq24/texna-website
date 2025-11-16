@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>Texna - Leading Jacquard Harness Systems Manufacturer</title>
     <meta name="description" content="Texna is India's leading manufacturer of Jacquard Harness Systems with 35+ years of experience.">
     
     <!-- Mobile-First CSS -->
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header with Centered Logo and Hamburger Menu -->
+    <!-- Header with Back Button, Hamburger Menu, and Centered Logo -->
     <header class="header">
-        <!-- Hamburger Menu Button with SVG -->
+        <!-- Back Button -->
+        <button class="back-button" onclick="history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="#343770" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" onclick="toggleMenu()">
             <img src="SVG/Menu Line.svg" alt="Menu" />
         </button>
@@ -51,31 +58,36 @@
         </div>
     </div>
 
-    <!-- Hero Banner Slider -->
-    <section class="hero-banner">
-        <div class="slider-container">
-            <div class="slider-track" id="sliderTrack">
-                <div class="slide">
-                    <img src="Hero banner/01.webp" alt="Texna Hero Banner 1" loading="eager">
+    <!-- Hero Section - Slider Banner -->
+    <section class="hero-section">
+        <div class="hero-slider-container">
+            <div class="hero-slider" id="heroSlider">
+                <!-- Slide 1 -->
+                <div class="hero-slide">
+                    <img src="Hero banner/01.webp" alt="Texna Hero Banner 1" class="hero-slide-image">
                 </div>
-                <div class="slide">
-                    <img src="Hero banner/02.webp" alt="Texna Hero Banner 2" loading="lazy">
+                
+                <!-- Slide 2 -->
+                <div class="hero-slide">
+                    <img src="Hero banner/02.webp" alt="Texna Hero Banner 2" class="hero-slide-image">
                 </div>
-                <div class="slide">
-                    <img src="Hero banner/03.webp" alt="Texna Hero Banner 3" loading="lazy">
+                
+                <!-- Slide 3 -->
+                <div class="hero-slide">
+                    <img src="Hero banner/03.webp" alt="Texna Hero Banner 3" class="hero-slide-image">
                 </div>
             </div>
             
-            <!-- Navigation Dots -->
-            <div class="slider-dots">
-                <span class="dot active" onclick="goToSlide(0)"></span>
-                <span class="dot" onclick="goToSlide(1)"></span>
-                <span class="dot" onclick="goToSlide(2)"></span>
+            <!-- Slider Indicators -->
+            <div class="hero-slider-indicators">
+                <span class="hero-indicator active" data-slide="0" onclick="goToSlide(0)"></span>
+                <span class="hero-indicator" data-slide="1" onclick="goToSlide(1)"></span>
+                <span class="hero-indicator" data-slide="2" onclick="goToSlide(2)"></span>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section - Four Blue Cards -->
     <section class="features-section">
         <div class="features-grid">
             <!-- Readymade Jala Card -->
@@ -99,7 +111,7 @@
                 <div class="feature-icon">
                     <img src="SVG/Quick Service  (Under 24 Hrs).svg" alt="Quick Service">
                 </div>
-                <h3 class="feature-title">Quick Service<br>(Under 24 Hrs)</h3>
+                <h3 class="feature-title">Quick Service<br>(Within 24 Hours)</h3>
             </div>
 
             <!-- Support & Maintenance Card -->
@@ -112,185 +124,52 @@
         </div>
     </section>
 
-    <!-- ABC SVG Image Section -->
+    <!-- ABC SVG Section -->
     <section class="abc-section">
-        <img src="abc.svg" alt="Texna Product Categories - Guide Board, Harness Cord, Comber Board, Wire Headls (Raj) - Click View All to see all products" class="categories-guide-image" loading="lazy">
-    </section>
-
-    <!-- Team Profile Section -->
-    <section class="team-section">
-        <div class="team-grid">
-            <!-- Profile 1: Nasir Khan -->
-            <div class="team-member team-member-left" onclick="openProfileBanner('nasir')">
-                <div class="profile-image-wrapper">
-                    <img src="Nasir Bhai.webp" alt="Nasir Khan Jalewala" class="profile-image">
-                </div>
-                <h3 class="member-name">NASIR <span class="name-light">KHAN JALEWALA</span></h3>
-                <p class="member-title">CHIEF EXECUTIVE OFFICER</p>
-            </div>
-
-            <!-- Profile 2: Affan Khan -->
-            <div class="team-member team-member-right" onclick="openProfileBanner('affan')">
-                <div class="profile-image-wrapper">
-                    <img src="Affan Bhai.webp" alt="Affan Khan" class="profile-image">
-                </div>
-                <h3 class="member-name">AFFAN <span class="name-light">KHAN</span></h3>
-                <p class="member-title">CHIEF FINANCIAL OFFICER</p>
-            </div>
-
-            <!-- Profile 3: Zaid Khan -->
-            <div class="team-member team-member-left" onclick="openProfileBanner('zaid')">
-                <div class="profile-image-wrapper">
-                    <img src="Zaid Bhai.webp" alt="Zaid Khan" class="profile-image">
-                </div>
-                <h3 class="member-name">ZAID <span class="name-light">KHAN</span></h3>
-                <p class="member-title">CHIEF OPERATING OFFICER</p>
-            </div>
-
-            <!-- Profile 4: Kalim Malik -->
-            <div class="team-member team-member-right" onclick="openProfileBanner('kalim')">
-                <div class="profile-image-wrapper">
-                    <img src="Kalim Bhai.webp" alt="Kalim Malik" class="profile-image">
-                </div>
-                <h3 class="member-name">KALIM <span class="name-light">MALIK</span></h3>
-                <p class="member-title">GENERAL MANAGER</p>
-            </div>
+        <div class="abc-container">
+            <img src="abc.svg" alt="Texna" class="abc-image">
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <h2 class="reviews-heading">What Clients Say About Us</h2>
-        <p class="reviews-subheading">Trusted by businesses worldwide for quality and excellence</p>
-        
-        <div class="reviews-slider-container">
-            <div class="reviews-slider" id="reviewsSlider">
-                <!-- Review 1 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">J</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Jack William</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Texna has revolutionized the way I manage projects. Its comprehensive suite of tools, user-friendly interface, and robust performance have significantly enhanced our productivity and collaboration.</p>
+    <!-- Leadership/Team Section - Four Profile Cards -->
+    <section class="leadership-section">
+        <div class="leadership-grid">
+            <!-- Profile 1: Nasir Khan - CEO -->
+            <div class="leader-card" onclick="openProfileBanner('nasir')">
+                <div class="leader-image-wrapper">
+                    <img src="Nasir Bhai.webp" alt="Nasir Khan Jalewala" class="leader-image">
                 </div>
+                <h3 class="leader-name">NASIR KHAN JALEWALA</h3>
+                <p class="leader-title">CHIEF EXECUTIVE OFFICER</p>
+            </div>
 
-                <!-- Review 2 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">S</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Sarah Johnson</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Outstanding service and quality products! The team at Texna truly understands customer needs and delivers beyond expectations. Highly recommended for anyone looking for reliable solutions.</p>
+            <!-- Profile 2: Affan Khan - CFO -->
+            <div class="leader-card" onclick="openProfileBanner('affan')">
+                <div class="leader-image-wrapper">
+                    <img src="Affan Bhai.webp" alt="Affan Khan" class="leader-image">
                 </div>
+                <h3 class="leader-name">AFFAN KHAN</h3>
+                <p class="leader-title">CHIEF FINANCIAL OFFICER</p>
+            </div>
 
-                <!-- Review 3 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">M</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Michael Chen</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Working with Texna has been a game-changer for our business. Their attention to detail and commitment to excellence is unmatched. We've seen remarkable improvements in our operations.</p>
+            <!-- Profile 3: Zaid Khan - COO -->
+            <div class="leader-card" onclick="openProfileBanner('zaid')">
+                <div class="leader-image-wrapper">
+                    <img src="Zaid Bhai.webp" alt="Zaid Khan" class="leader-image">
                 </div>
+                <h3 class="leader-name">ZAID KHAN</h3>
+                <p class="leader-title">CHIEF OPERATING OFFICER</p>
+            </div>
 
-                <!-- Review 4 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">P</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Priya Sharma</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Exceptional quality and timely delivery! Texna's products have exceeded our expectations. Their customer service is top-notch and they always go the extra mile to ensure satisfaction.</p>
+            <!-- Profile 4: Kalim Malik - Manager -->
+            <div class="leader-card" onclick="openProfileBanner('kalim')">
+                <div class="leader-image-wrapper">
+                    <img src="Kalim Bhai.webp" alt="Kalim Malik" class="leader-image">
                 </div>
-
-                <!-- Review 5 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">A</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Ahmed Khan</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">I've been working with Texna for over 5 years now. Their consistency in quality and innovation keeps us coming back. They are truly leaders in their industry.</p>
-                </div>
-
-                <!-- Review 6 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">E</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Emily Rodriguez</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Texna's innovative solutions have transformed our manufacturing process. The efficiency gains we've achieved are remarkable. Highly professional team with deep industry knowledge.</p>
-                </div>
-
-                <!-- Review 7 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">R</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Rajesh Patel</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Best decision we made was partnering with Texna. Their products are durable, reliable, and backed by excellent support. They truly care about their customers' success.</p>
-                </div>
-
-                <!-- Review 8 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">L</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Lisa Anderson</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Texna stands out for their commitment to sustainability and quality. Their eco-friendly approach combined with superior products makes them our preferred partner.</p>
-                </div>
-
-                <!-- Review 9 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">D</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">David Thompson</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Incredible service from start to finish. Texna's team is knowledgeable, responsive, and always delivers on their promises. Our production efficiency has increased by 40%!</p>
-                </div>
-
-                <!-- Review 10 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-image reviewer-initial">F</div>
-                        <div class="reviewer-info">
-                            <h3 class="reviewer-name">Fatima Ali</h3>
-                            <div class="review-stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Texna has been instrumental in our growth. Their cutting-edge technology and personalized service have given us a competitive edge. Absolutely recommend them to everyone!</p>
-                </div>
+                <h3 class="leader-name">KALIM MALIK</h3>
+                <p class="leader-title">GENERAL MANAGER</p>
             </div>
         </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section">
-        <img src="Map.webp" alt="Texna Location Map" class="map-image">
     </section>
 
     <!-- Profile Banner Popup -->
@@ -319,11 +198,6 @@
         </div>
     </div>
 
-    <!-- Main Content Area (for future content) -->
-    <main class="main-content">
-        <!-- Content will be added step by step -->
-    </main>
-
     <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
@@ -335,16 +209,35 @@
         <a href="services.html" class="nav-item">
             <img src="SVG/Services Button.svg" alt="Services" class="nav-icon">
         </a>
-        <a href="products.html" class="nav-item nav-item-with-label">
-            <img src="SVG/Product Icon.svg" alt="Products" class="nav-icon">
-            <span class="nav-label nav-label-products">Products</span>
+        <a href="products.html" class="nav-item">
+            <img src="Untitled design-3.png" alt="Products" class="nav-icon">
         </a>
-        <a href="https://wa.me/1234567890" target="_blank" class="nav-item">
+        <a href="https://wa.me/919978617177" target="_blank" class="nav-item">
             <img src="SVG/Whatsapp Button.svg" alt="WhatsApp" class="nav-icon">
         </a>
     </nav>
 
+    <!-- Texna Popup Banner -->
+    <div class="texna-popup-overlay" id="texnaPopupOverlay">
+        <div class="texna-popup-content">
+            <button class="texna-popup-close" onclick="closeTexnaPopup()">&times;</button>
+            <div class="texna-popup-image">
+                <img src="Invitation Card.jpg" alt="Texna Invitation Card">
+            </div>
+            <div class="texna-popup-buttons">
+                <a href="https://wa.me/919978617177" target="_blank" class="texna-popup-btn whatsapp-btn">
+                    <img src="SVG/Whatsapp Button.svg" alt="WhatsApp" class="btn-icon">
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://maps.app.goo.gl/cuu59UxAGtw69DDT6" target="_blank" class="texna-popup-btn location-btn">
+                    <img src="location (1).png" alt="Location" class="location-icon">
+                    <span>Location</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Mobile-First JavaScript -->
-    <script src="script.js?v=6"></script>
+    <script src="script.js"></script>
 </body>
 </html>

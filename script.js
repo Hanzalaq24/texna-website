@@ -1,13 +1,12 @@
-// ===== TEXNA MOBILE WEBSITE - STEP BY STEP BUILD =====
+// ===== TEXNA MOBILE-ONLY WEBSITE - JAVASCRIPT =====
 
-// Simple JavaScript for mobile website
 console.log('🚀 Texna Mobile Website Loading...');
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Texna Mobile Website Loaded Successfully');
     
-    // Add any mobile-specific functionality here as we build
+    // Initialize mobile-specific features
     initializeMobileFeatures();
 });
 
@@ -21,6 +20,9 @@ function initializeMobileFeatures() {
     
     // Set active menu item on page load
     setActiveMenuItem();
+    
+    // Set active navigation item
+    setActiveNavItem();
 }
 
 // Add touch support for better mobile experience
@@ -110,156 +112,6 @@ document.addEventListener('keydown', (e) => {
 
 console.log('✅ Hamburger menu system initialized');
 
-// ===== HERO BANNER SLIDER FUNCTIONALITY =====
-let currentSlide = 0;
-let slideInterval;
-const totalSlides = 3;
-
-// Initialize slider when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSlider();
-});
-
-function initializeSlider() {
-    // Start auto-slide
-    startAutoSlide();
-    
-    // Add touch support for mobile swiping
-    addSliderTouchSupport();
-    
-    console.log('🎠 Hero banner slider initialized');
-}
-
-function goToSlide(slideIndex) {
-    currentSlide = slideIndex;
-    updateSlider();
-    
-    // Reset auto-slide timer
-    clearInterval(slideInterval);
-    startAutoSlide();
-    
-    console.log('🎠 Moved to slide:', slideIndex + 1);
-}
-
-function updateSlider() {
-    const sliderTrack = document.getElementById('sliderTrack');
-    const dots = document.querySelectorAll('.dot');
-    
-    // Move slider track
-    const translateX = -currentSlide * 33.333;
-    sliderTrack.style.transform = `translateX(${translateX}%)`;
-    
-    // Update active dot
-    dots.forEach((dot, index) => {
-        if (index === currentSlide) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateSlider();
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateSlider();
-}
-
-function startAutoSlide() {
-    slideInterval = setInterval(nextSlide, 6000); // Change slide every 6 seconds
-}
-
-function addSliderTouchSupport() {
-    const sliderContainer = document.querySelector('.slider-container');
-    let startX = 0;
-    let startY = 0;
-    let endX = 0;
-    let endY = 0;
-    let isDragging = false;
-    let hasMoved = false;
-    
-    // Touch start
-    sliderContainer.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isDragging = true;
-        hasMoved = false;
-        
-        // Pause auto-slide while touching
-        clearInterval(slideInterval);
-    }, { passive: true });
-    
-    // Touch move (for better gesture detection)
-    sliderContainer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        const currentX = e.touches[0].clientX;
-        const currentY = e.touches[0].clientY;
-        
-        // Calculate movement
-        const diffX = Math.abs(currentX - startX);
-        const diffY = Math.abs(currentY - startY);
-        
-        // Mark that user has moved
-        if (diffX > 5 || diffY > 5) {
-            hasMoved = true;
-        }
-        
-        // Prevent vertical scrolling if horizontal swipe is detected
-        if (diffX > diffY && diffX > 5) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    // Touch end
-    sliderContainer.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        
-        endX = e.changedTouches[0].clientX;
-        endY = e.changedTouches[0].clientY;
-        isDragging = false;
-        
-        if (hasMoved) {
-            handleSwipe();
-        }
-        
-        // Resume auto-slide
-        startAutoSlide();
-    }, { passive: true });
-    
-    function handleSwipe() {
-        const swipeThreshold = 20; // Lower threshold for easier swiping
-        const diffX = startX - endX;
-        const diffY = Math.abs(startY - endY);
-        
-        // Only process horizontal swipes (not vertical scrolls)
-        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
-            if (diffX > 0) {
-                // Swipe left - next slide
-                nextSlide();
-                console.log('👆 Swiped left - next slide');
-            } else {
-                // Swipe right - previous slide
-                prevSlide();
-                console.log('👆 Swiped right - previous slide');
-            }
-        }
-    }
-}
-
-// Pause slider when page is not visible
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        clearInterval(slideInterval);
-    } else {
-        startAutoSlide();
-    }
-});
-
 // ===== FEATURE CARDS POPUP FUNCTIONALITY =====
 const featureData = {
     readymade: {
@@ -305,6 +157,11 @@ function openPopup(featureKey) {
     const title = document.getElementById('popupTitle');
     const text = document.getElementById('popupText');
     
+    if (!overlay || !icon || !title || !text) {
+        console.error('❌ Popup elements not found');
+        return;
+    }
+    
     // Set popup content
     icon.src = feature.icon;
     icon.alt = feature.title;
@@ -320,6 +177,8 @@ function openPopup(featureKey) {
 
 function closePopup() {
     const overlay = document.getElementById('popupOverlay');
+    if (!overlay) return;
+    
     overlay.classList.remove('active');
     document.body.style.overflow = ''; // Restore scrolling
     
@@ -329,32 +188,34 @@ function closePopup() {
 // Close popup on escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        closePopup();
+        const popupOverlay = document.getElementById('popupOverlay');
+        if (popupOverlay && popupOverlay.classList.contains('active')) {
+            closePopup();
+        }
     }
 });
-
-// We'll add more functions as we build step by step
 
 // ===== PROFILE BANNER POPUP FUNCTIONALITY =====
 const profileBannerData = {
     nasir: {
         image: "Profile banner/04.webp",
         heading: "CEO's Message",
-        text: `<p>At TEXNA, our journey is driven by innovation, integrity, and excellence. From humble beginnings to a trusted name, we've stayed committed to creating value through quality and consistency.</p><p>Our success lies in the trust of our customers and partners — every product reflects our dedication to craftsmanship, sustainability, and forward-thinking design.</p><p>As we grow, we'll keep pushing boundaries, embracing technology, and empowering our people to build a smarter, more connected future.</p><div class="signature"><strong>Nasir Khan</strong><span>Chief Executive Officer, TEXNA</span></div>`
+        text: `At TEXNA, our journey is driven by innovation, integrity, and excellence. From humble beginnings to a trusted name, we've stayed committed to creating value through quality and consistency. Our success lies in the trust of our customers and partners. Sustainability, and forward-thinking design as we continue pushing boundaries, embracing technology, and empowering our people to build a smarter, more connected future.<div class="signature"><strong>Nasir Khan</strong><span>Chief Executive Officer, TEXNA</span></div>`
     },
     affan: {
         image: "Profile banner/05.webp",
-        text: `<p style="color: #FFD700; font-weight: 700; font-size: 12px; margin-bottom: 6px;">CFO's Message</p><p style="font-size: 10px;">At TEXNA, our financial approach is built on transparency, responsibility, and sustainable growth. We stay committed to efficiency, innovation, and long-term value creation.</p><p style="font-size: 10px;">Our goal is to keep TEXNA financially strong — driving progress, supporting our vision, and creating lasting value for every stakeholder.</p><div class="signature"><strong style="font-size: 12px;">Affan Khan</strong><span style="font-size: 8px;">Chief Financial Officer, TEXNA</span></div>`
+        heading: "CFO's Message",
+        text: `At TEXNA, our financial approach is built on transparency, responsibility, and sustainable growth. We stay committed to efficiency, innovation, and long-term value creation. Our goal is to keep TEXNA financially strong — driving progress, supporting our vision, and creating lasting value for every stakeholder.<div class="signature"><strong>Affan Khan</strong><span>Chief Financial Officer, TEXNA</span></div>`
     },
     zaid: {
         image: "Profile banner/07.webp",
         heading: "COO's Message",
-        text: `<p style="font-size: 10px;">At TEXNA, operational excellence drives everything we do. From production to delivery, we focus on quality, efficiency, and constant improvement.</p><p style="font-size: 10px;">With teamwork, innovation, and precision, our people power TEXNA's success — turning challenges into achievements and setting new standards of excellence.</p><div class="signature"><strong style="font-size: 12px;">Zaid Khan</strong><span style="font-size: 8px;">Chief Operating Officer, TEXNA</span></div>`
+        text: `At TEXNA, operational excellence drives everything we do. From production to delivery, we focus on quality, efficiency, and constant improvement. With teamwork, innovation, and precision, our people power TEXNA's success — turning challenges into achievements and setting new standards of excellence.<div class="signature"><strong>Zaid Khan</strong><span>Chief Operating Officer, TEXNA</span></div>`
     },
     kalim: {
         image: "Profile banner/06.webp",
         heading: "General Manager's Message",
-        text: `<p style="font-size: 10px;">At TEXNA, we drive progress through innovation, dedication, and teamwork. My focus is to align our daily operations and customer relationships with our long-term vision of excellence and growth.</p><p style="font-size: 10px;">With integrity, efficiency, and a passion for quality, we aim to exceed expectations and set new standards for the future.</p><div class="signature"><strong style="font-size: 12px;">Kalim Malik</strong><span style="font-size: 8px;">General Manager, TEXNA</span></div>`
+        text: `At TEXNA, we drive progress through innovation, dedication, and teamwork. My focus is to align our daily operations and customer relationships with our long-term vision of excellence and growth. With integrity, efficiency, and a passion for quality, we aim to exceed expectations and set new standards for the future.<div class="signature"><strong>Kalim Malik</strong><span>General Manager, TEXNA</span></div>`
     }
 };
 
@@ -373,18 +234,16 @@ window.openProfileBanner = function(profileKey) {
     const heading = document.getElementById('profileBannerHeading');
     const text = document.getElementById('profileBannerText');
     
-    if (!overlay || !image || !text) {
+    if (!overlay || !image) {
         console.error('❌ Profile banner elements not found');
         return;
     }
     
     console.log('✅ Setting banner image:', profile.image);
     
-    // Set banner content
+    // Set banner image
     image.src = profile.image;
-    image.alt = profile.heading || profile.text.split('\n')[0];
-    
-
+    image.alt = profile.heading || 'Profile Banner';
     
     // Set heading if exists
     if (heading && profile.heading) {
@@ -394,22 +253,21 @@ window.openProfileBanner = function(profileKey) {
         heading.style.display = 'none';
     }
     
-    text.innerHTML = profile.text.replace(/\n/g, '<br>');
-    
-    // Add class for profiles with headings (to adjust text position)
-    if (profile.heading) {
-        text.classList.add('has-heading');
-    } else {
-        text.classList.remove('has-heading');
+    // Set text if exists
+    if (text && profile.text) {
+        text.innerHTML = profile.text;
+        text.style.display = 'block';
+    } else if (text) {
+        text.style.display = 'none';
     }
     
     // Position text on right for Affan and Kalim, left for others
     if (profileKey === 'affan' || profileKey === 'kalim') {
         if (heading) heading.classList.add('text-right');
-        text.classList.add('text-right');
+        if (text) text.classList.add('text-right');
     } else {
         if (heading) heading.classList.remove('text-right');
-        text.classList.remove('text-right');
+        if (text) text.classList.remove('text-right');
     }
     
     // Show banner
@@ -447,165 +305,7 @@ document.addEventListener('keydown', (e) => {
 
 console.log('✅ Profile banner system initialized');
 
-// Test that functions are accessible
-if (typeof window.openProfileBanner === 'function') {
-    console.log('✅ openProfileBanner is accessible globally');
-} else {
-    console.error('❌ openProfileBanner is NOT accessible');
-}
-
-if (typeof window.closeProfileBanner === 'function') {
-    console.log('✅ closeProfileBanner is accessible globally');
-} else {
-    console.error('❌ closeProfileBanner is NOT accessible');
-}
-
-
-// ===== REVIEWS SLIDER FUNCTIONALITY =====
-let currentReview = 0;
-let reviewInterval;
-const totalReviews = 10;
-
-// Initialize reviews slider when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeReviewsSlider();
-});
-
-function initializeReviewsSlider() {
-    // Start auto-slide for reviews
-    startReviewAutoSlide();
-    
-    // Add touch support for mobile swiping
-    addReviewsTouchSupport();
-    
-    console.log('⭐ Reviews slider initialized');
-}
-
-function goToReview(reviewIndex) {
-    currentReview = reviewIndex;
-    updateReviewsSlider();
-    
-    // Reset auto-slide timer
-    clearInterval(reviewInterval);
-    startReviewAutoSlide();
-    
-    console.log('⭐ Moved to review:', reviewIndex + 1);
-}
-
-function updateReviewsSlider() {
-    const reviewsSlider = document.getElementById('reviewsSlider');
-    
-    if (!reviewsSlider) return;
-    
-    // Move slider track (10% per review since we have 10 reviews)
-    const translateX = -currentReview * 10;
-    reviewsSlider.style.transform = `translateX(${translateX}%)`;
-}
-
-function nextReview() {
-    currentReview = (currentReview + 1) % totalReviews;
-    updateReviewsSlider();
-}
-
-function prevReview() {
-    currentReview = (currentReview - 1 + totalReviews) % totalReviews;
-    updateReviewsSlider();
-}
-
-function startReviewAutoSlide() {
-    reviewInterval = setInterval(nextReview, 8000); // Change review every 8 seconds (slower)
-}
-
-function addReviewsTouchSupport() {
-    const reviewsContainer = document.querySelector('.reviews-slider-container');
-    if (!reviewsContainer) return;
-    
-    let startX = 0;
-    let startY = 0;
-    let endX = 0;
-    let endY = 0;
-    let isDragging = false;
-    
-    // Touch start
-    reviewsContainer.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isDragging = true;
-        
-        // Pause auto-slide while touching
-        clearInterval(reviewInterval);
-    }, { passive: true });
-    
-    // Touch move
-    reviewsContainer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        const currentX = e.touches[0].clientX;
-        const currentY = e.touches[0].clientY;
-        
-        // Prevent vertical scrolling if horizontal swipe is detected
-        const diffX = Math.abs(currentX - startX);
-        const diffY = Math.abs(currentY - startY);
-        
-        if (diffX > diffY && diffX > 10) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    // Touch end
-    reviewsContainer.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        
-        endX = e.changedTouches[0].clientX;
-        endY = e.changedTouches[0].clientY;
-        isDragging = false;
-        
-        handleReviewSwipe();
-        
-        // Resume auto-slide
-        startReviewAutoSlide();
-    }, { passive: true });
-    
-    function handleReviewSwipe() {
-        const swipeThreshold = 30;
-        const diffX = startX - endX;
-        const diffY = Math.abs(startY - endY);
-        
-        // Only process horizontal swipes
-        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
-            if (diffX > 0) {
-                // Swipe left - next review
-                nextReview();
-                console.log('👆 Swiped left - next review');
-            } else {
-                // Swipe right - previous review
-                prevReview();
-                console.log('👆 Swiped right - previous review');
-            }
-        }
-    }
-}
-
-// Pause reviews slider when page is not visible
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        clearInterval(reviewInterval);
-    } else {
-        if (typeof startReviewAutoSlide === 'function') {
-            startReviewAutoSlide();
-        }
-    }
-});
-
-console.log('✅ Reviews slider system initialized');
-
-
 // ===== BOTTOM NAVIGATION FUNCTIONALITY =====
-// Set active navigation item based on current page
-document.addEventListener('DOMContentLoaded', function() {
-    setActiveNavItem();
-});
-
 function setActiveNavItem() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navItems = document.querySelectorAll('.nav-item');
@@ -645,74 +345,246 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ===== HERO SLIDER FUNCTIONALITY =====
+let currentHeroSlide = 0;
+let heroSlideInterval;
+const totalHeroSlides = 3;
 
-// ===== PRODUCT DETAIL NAVIGATION =====
-function viewProductDetail(name, image, description, features) {
-    // Store product data in sessionStorage
-    const productData = {
-        name: name,
-        image: image,
-        description: description,
-        features: features
-    };
+// Initialize hero slider when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeHeroSlider();
+});
+
+function initializeHeroSlider() {
+    // Start auto-slide
+    startHeroAutoSlide();
     
-    sessionStorage.setItem('currentProduct', JSON.stringify(productData));
+    // Add touch support for mobile swiping
+    addHeroSliderTouchSupport();
     
-    // Navigate to product detail page
-    window.location.href = 'product-detail.html';
+    // Update initial slide
+    updateHeroSlider();
     
-    console.log('📦 Navigating to product detail:', name);
+    console.log('🎠 Hero slider initialized');
 }
 
-// Load product data on product detail page
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on the product detail page
-    if (window.location.pathname.includes('product-detail.html')) {
-        loadProductDetail();
+function goToSlide(slideIndex) {
+    currentHeroSlide = slideIndex;
+    updateHeroSlider();
+    
+    // Reset auto-slide timer
+    clearInterval(heroSlideInterval);
+    startHeroAutoSlide();
+    
+    console.log('🎠 Moved to slide:', slideIndex + 1);
+}
+
+function updateHeroSlider() {
+    const heroSlider = document.getElementById('heroSlider');
+    const indicators = document.querySelectorAll('.hero-indicator');
+    
+    if (!heroSlider) return;
+    
+    // Move slider with smooth transition
+    const translateX = -currentHeroSlide * 33.333;
+    heroSlider.style.transform = `translateX(${translateX}%)`;
+    
+    // Update active indicator
+    indicators.forEach((indicator, index) => {
+        if (index === currentHeroSlide) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
+}
+
+function nextHeroSlide() {
+    currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
+    updateHeroSlider();
+}
+
+function prevHeroSlide() {
+    currentHeroSlide = (currentHeroSlide - 1 + totalHeroSlides) % totalHeroSlides;
+    updateHeroSlider();
+}
+
+function startHeroAutoSlide() {
+    heroSlideInterval = setInterval(nextHeroSlide, 5000); // Change slide every 5 seconds
+}
+
+function addHeroSliderTouchSupport() {
+    const sliderContainer = document.querySelector('.hero-slider-container');
+    if (!sliderContainer) return;
+    
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
+    let isDragging = false;
+    let hasMoved = false;
+    
+    // Touch start
+    sliderContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        hasMoved = false;
+        
+        // Pause auto-slide while touching
+        clearInterval(heroSlideInterval);
+    }, { passive: true });
+    
+    // Touch move
+    sliderContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        
+        // Calculate movement
+        const diffX = Math.abs(currentX - startX);
+        const diffY = Math.abs(currentY - startY);
+        
+        // Mark that user has moved
+        if (diffX > 5 || diffY > 5) {
+            hasMoved = true;
+        }
+        
+        // Prevent vertical scrolling if horizontal swipe is detected
+        if (diffX > diffY && diffX > 5) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Touch end
+    sliderContainer.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        
+        endX = e.changedTouches[0].clientX;
+        endY = e.changedTouches[0].clientY;
+        isDragging = false;
+        
+        if (hasMoved) {
+            handleHeroSwipe();
+        }
+        
+        // Resume auto-slide
+        startHeroAutoSlide();
+    }, { passive: true });
+    
+    function handleHeroSwipe() {
+        const swipeThreshold = 30;
+        const diffX = startX - endX;
+        const diffY = Math.abs(startY - endY);
+        
+        // Only process horizontal swipes (not vertical scrolls)
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
+            if (diffX > 0) {
+                // Swipe left - next slide
+                nextHeroSlide();
+                console.log('👆 Swiped left - next slide');
+            } else {
+                // Swipe right - previous slide
+                prevHeroSlide();
+                console.log('👆 Swiped right - previous slide');
+            }
+        }
+    }
+}
+
+// Pause slider when page is not visible
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        clearInterval(heroSlideInterval);
+    } else {
+        startHeroAutoSlide();
     }
 });
 
-function loadProductDetail() {
-    const productDataStr = sessionStorage.getItem('currentProduct');
+// Make goToSlide function globally accessible
+window.goToSlide = goToSlide;
+
+// ===== PRODUCTS SECTION HEIGHT MATCHING =====
+function matchProductsHeight() {
+    const mainImage = document.querySelector('.machine-image');
+    const productsGrid = document.querySelector('.products-grid');
     
-    if (!productDataStr) {
-        console.error('❌ No product data found');
+    if (!mainImage || !productsGrid) return;
+    
+    // Wait for images to load
+    if (mainImage.complete) {
+        setProductsGridHeight();
+    } else {
+        mainImage.addEventListener('load', setProductsGridHeight);
+    }
+    
+    function setProductsGridHeight() {
+        const mainImageHeight = mainImage.offsetHeight;
+        if (mainImageHeight > 0) {
+            productsGrid.style.height = mainImageHeight + 'px';
+        }
+    }
+    
+    // Also handle window resize
+    window.addEventListener('resize', () => {
+        setTimeout(setProductsGridHeight, 100);
+    });
+}
+
+// Initialize products height matching when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    matchProductsHeight();
+});
+
+console.log('✅ All JavaScript functionality initialized');
+
+
+// ===== TEXNA POPUP BANNER FUNCTIONALITY =====
+function openTexnaPopup() {
+    const overlay = document.getElementById('texnaPopupOverlay');
+    if (!overlay) {
+        console.error('❌ Texna popup overlay not found');
         return;
     }
     
-    const productData = JSON.parse(productDataStr);
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
     
-    // Update page elements
-    const productName = document.getElementById('productName');
-    const productImage = document.getElementById('productImage');
-    const productDescription = document.getElementById('productDescription');
-    const featuresList = document.getElementById('featuresList');
-    
-    if (productName) productName.textContent = productData.name;
-    if (productImage) {
-        productImage.src = productData.image;
-        productImage.alt = productData.name;
-    }
-    if (productDescription) productDescription.textContent = productData.description;
-    
-    // Update features list
-    if (featuresList && productData.features) {
-        featuresList.innerHTML = '';
-        productData.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.className = 'feature-item';
-            li.innerHTML = `
-                <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M16.6 5L7.5 14.1 3.4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>${feature}</span>
-            `;
-            featuresList.appendChild(li);
-        });
-    }
-    
-    // Update page title
-    document.title = `${productData.name} - Texna`;
-    
-    console.log('✅ Product detail loaded:', productData.name);
+    console.log('✅ Texna popup opened');
 }
+
+function closeTexnaPopup() {
+    const overlay = document.getElementById('texnaPopupOverlay');
+    if (!overlay) return;
+    
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    console.log('❌ Texna popup closed');
+}
+
+// Show popup every time page loads
+function showTexnaPopup() {
+    // Show popup after 1 second
+    setTimeout(() => {
+        openTexnaPopup();
+    }, 1000);
+}
+
+// Close popup on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const overlay = document.getElementById('texnaPopupOverlay');
+        if (overlay && overlay.classList.contains('active')) {
+            closeTexnaPopup();
+        }
+    }
+});
+
+// Initialize popup when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    showTexnaPopup();
+});
+
+console.log('✅ Texna popup banner system initialized');
