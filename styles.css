@@ -1251,13 +1251,13 @@ body {
     display: block;
     object-fit: contain;
     object-position: center;
-    transform: scale(1.15);
+    transform: scale(1.15) translateY(-2%);
     max-width: none;
 }
 
 .texna-popup-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     padding: 20px;
     background: #ffffff;
     flex-shrink: 0;
@@ -1267,6 +1267,7 @@ body {
     right: 0;
     width: 100%;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    flex-wrap: wrap;
 }
 
 .texna-popup-btn {
@@ -1303,6 +1304,18 @@ body {
     width: 26px;
     height: 26px;
     filter: brightness(0) invert(1);
+}
+
+/* Registration button - Pink gradient with light pink */
+.registration-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #EC008C 0%, #FF66B3 100%);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.registration-btn:active {
+    box-shadow: 0 2px 8px rgba(236, 0, 140, 0.4);
 }
 
 .location-btn {
